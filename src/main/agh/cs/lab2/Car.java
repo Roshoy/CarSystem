@@ -3,6 +3,7 @@ package agh.cs.lab2;
 /**
  * Created by student33 on 2018-10-16.
  */
+//Adrian
 public class Car {
     private MapDirection direction = MapDirection.NORTH;
     private Position position  = new Position(2,2);
