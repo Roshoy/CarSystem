@@ -1,11 +1,15 @@
 package agh.cs.lab2;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractWorldMap implements IWorldMap{
     private List<Car> cars  = new LinkedList<Car>();
     private List<HayStack> hayStacks = new LinkedList<HayStack>();
+
+    private Map<Position, Car> carss = new HashMap<Position, Car>();
 
     private Position leftDownCorner;
     private Position rightUpperCorner;
@@ -33,7 +37,8 @@ public abstract class AbstractWorldMap implements IWorldMap{
 
     public boolean place(Car car) {
         if(isOccupied(car.getPosition()))return false;
-        this.cars.add(car);
+        this.carss.put(car.getPosition(),car);
+
         return true;
     }
 

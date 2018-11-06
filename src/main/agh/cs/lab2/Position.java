@@ -41,4 +41,11 @@ public class Position {
         Position o = (Position) other;
         return o.x == this.x && o.y == this.y;
     }
+    @Override
+    public int hashCode(){
+        int hash = 7;
+        hash += this.x * 31;
+        hash += this.y * 41;
+        return hash;
+    }
 }
