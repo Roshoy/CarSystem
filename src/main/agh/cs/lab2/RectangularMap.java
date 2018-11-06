@@ -13,22 +13,26 @@ public class RectangularMap extends AbstractWorldMap{
 
         this.height = height;
         this.width = width;
-        this.leftDownCorner = new Position(0,0);
-        this.rightUpperCorner = new Position(this.width-1,this.height-1);
+        this.setLeftDownCorner(new Position(0,0));
+        this.setRightUpperCorner(new Position(this.width-1,this.height-1));
+
+
     }
 
     @Override
     public boolean canMoveTo(Position position){
 
-        if( this.rightUpperCorner.largerThan(position) &&
-                this.leftDownCorner.smallerThan(position) &&
+        if( this.getRightUpperCorner().largerThan(position) &&
+                this.getLeftDownCorner().smallerThan(position) &&
                 !isOccupied(position))return true;
         return false;
     }
 
+
     @Override
     public String toString() {
-        return new MapVisualizer(this).draw(this.leftDownCorner,this.rightUpperCorner);
+        return new MapVisualizer(this).draw(this.getLeftDownCorner(),this.getRightUpperCorner());
+
     }
 
 

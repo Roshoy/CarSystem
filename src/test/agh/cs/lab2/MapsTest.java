@@ -8,11 +8,11 @@ import static org.junit.Assert.assertEquals;
 
 public class MapsTest {
     @Test
-    public void rectangularMapTest(){
-        IWorldMap map = new RectangularMap(10,10);
+    public void unboundedMapForcedTest(){
+        IWorldMap map = new UnboundedMap();
         Car car1 = new Car(map,new Position(0,0));
-        Car car2 = new Car(map,new Position(4,4));
-        Car carWasted = new Car(map,new Position(0,0));
+        Car car2 = new Car(map,new Position(3,4));
+
         HayStack[] stacks = {new HayStack(new Position(-4,-4)),
                              new HayStack(new Position(7,7)),
                              new HayStack(new Position(3,6)),
@@ -28,9 +28,74 @@ public class MapsTest {
                         "f","f"};
 
         LinkedList<MoveDirection> directions = new OptionsParser().parse(arg);
+        map.place(car1);
+        map.place(car2);
+        for (int i=0;i<stacks.length;i++) {
+            ((UnboundedMap) map).placeHayStack(stacks[i]);
+        }
         map.run(directions);
-        assertEquals("N (2,4)",((Car)map.objectAt(new Position(2,4))).dataToString());
-        assertEquals("S (1,0)",((Car)map.objectAt(new Position(1,0))).dataToString());
 
+        assertEquals("N (2,7)",((UnboundedMap) map).getCar(1).dataToString());
+        assertEquals("S (1,-3)",((UnboundedMap) map).getCar(0).dataToString());
+    }
+    @Test
+    public void unboundedMapTest(){
+        IWorldMap map = new UnboundedMap();
+        Car car1 = new Car(map,new Position(0,0));
+
+
+        HayStack[] stacks = {new HayStack(new Position(0,1)),
+
+        };
+        String[] arg = {"f",
+                "r",
+                "f",
+                "l",
+                "f",
+                "f",
+                "b",
+                "f", "b", "b", "b", "b"};
+
+        LinkedList<MoveDirection> directions = new OptionsParser().parse(arg);
+        map.place(car1);
+
+        for (int i=0;i<stacks.length;i++) {
+            ((UnboundedMap) map).placeHayStack(stacks[i]);
+        }
+        map.run(directions);
+
+        assertEquals("N (1,-2)",((UnboundedMap) map).getCar(0).dataToString());
+        assertEquals(new Position(1,-2),((UnboundedMap) map).getLeftDownCorner());
+
+    }
+    @Test
+    public void rectangleMapTest(){
+        IWorldMap map = new RectangularMap(10,10);
+        Car car1 = new Car(map,new Position(0,0));
+
+
+        HayStack[] stacks = {new HayStack(new Position(0,1)),
+
+        };
+        String[] arg = {"f",
+                "r",
+                "f",
+                "l",
+                "f",
+                "f",
+                "b",
+                "f", "b", "b", "b", "b"};
+
+        LinkedList<MoveDirection> directions = new OptionsParser().parse(arg);
+        map.place(car1);
+
+        for (int i=0;i<stacks.length;i++) {
+            ((UnboundedMap) map).placeHayStack(stacks[i]);
+        }
+        map.run(directions);
+
+        assertEquals("N (1,0)",((UnboundedMap) map).getCar(0).dataToString());
+        String[] arg2 = {"r","f","f","f","f","f","f","f","f","f","f","f",};
+        assertEquals("E (1,9)",((UnboundedMap) map).getCar(0).dataToString());
     }
 }

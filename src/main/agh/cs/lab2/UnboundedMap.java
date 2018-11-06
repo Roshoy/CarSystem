@@ -1,14 +1,13 @@
 package agh.cs.lab2;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class UnboundedMap extends AbstractWorldMap {
 
 
     public UnboundedMap(){
-        this.leftDownCorner = new Position(0,0);
-        this.rightUpperCorner = new Position(0,0);
+        this.setLeftDownCorner(new Position(0,0));
+        this.setRightUpperCorner(new Position(0,0));
     }
 
     @Override
@@ -20,16 +19,16 @@ public class UnboundedMap extends AbstractWorldMap {
 
     private void updateVisionCorners(){
         ///Update upper right corner of vision
-        if(!this.cars.isEmpty()) {
-            this.rightUpperCorner = this.cars.get(0).getPosition();
-            this.leftDownCorner = this.cars.get(0).getPosition();
-            for (Car c : cars) {
-                this.rightUpperCorner = c.getPosition().upperRight(this.rightUpperCorner);
-                this.leftDownCorner = c.getPosition().lowerLeft(this.leftDownCorner);
+        if(!this.getCars().isEmpty()) {
+            this.setRightUpperCorner(this.getCars().get(0).getPosition());
+            this.setLeftDownCorner(this.getCars().get(0).getPosition());
+            for (Car c : getCars()) {
+                this.setRightUpperCorner(c.getPosition().upperRight(this.getRightUpperCorner()));
+                this.setLeftDownCorner(c.getPosition().lowerLeft(this.getLeftDownCorner()));
             }
         }else{
-            this.rightUpperCorner = new Position(0,0);
-            this.leftDownCorner = new Position(0,0);
+            this.setRightUpperCorner(new Position(0,0));
+            this.setLeftDownCorner(new Position(0,0));
         }
     }
 
@@ -42,7 +41,7 @@ public class UnboundedMap extends AbstractWorldMap {
     @Override
     public String toString() {
         updateVisionCorners();
-        return new MapVisualizer(this).draw(this.leftDownCorner,this.rightUpperCorner);
+        return new MapVisualizer(this).draw(this.getLeftDownCorner(), this.getRightUpperCorner());
     }
 
 }

@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractWorldMap implements IWorldMap{
-    protected List<Car> cars  = new LinkedList<Car>();
-    protected List<HayStack> hayStacks = new LinkedList<HayStack>();
+    private List<Car> cars  = new LinkedList<Car>();
+    private List<HayStack> hayStacks = new LinkedList<HayStack>();
 
-    protected Position leftDownCorner;
-    protected Position rightUpperCorner;
+    private Position leftDownCorner;
+    private Position rightUpperCorner;
 
 
 
@@ -48,6 +48,10 @@ public abstract class AbstractWorldMap implements IWorldMap{
             if(car.getPosition().equals(position))
                 return car;
         }
+        for(HayStack stack: this.hayStacks){
+            if(stack.getPosition().equals(position))
+                return stack;
+        }
         return null;
     }
 
@@ -57,4 +61,35 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return cars.get(i);
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public List<HayStack> getHayStacks() {
+        return hayStacks;
+    }
+
+    public void setHayStacks(List<HayStack> hayStacks) {
+        this.hayStacks = hayStacks;
+    }
+
+    public Position getLeftDownCorner() {
+        return leftDownCorner;
+    }
+
+    public void setLeftDownCorner(Position leftDownCorner) {
+        this.leftDownCorner = leftDownCorner;
+    }
+
+    public Position getRightUpperCorner() {
+        return rightUpperCorner;
+    }
+
+    public void setRightUpperCorner(Position rightUpperCorner) {
+        this.rightUpperCorner = rightUpperCorner;
+    }
 }
