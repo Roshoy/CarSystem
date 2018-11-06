@@ -21,7 +21,7 @@ public class Car {
         this.position = new Position(0,0);
     }
 
-    public void move(MoveDirection direction){
+    public void move (MoveDirection direction) throws IllegalAccessException{
         Position newPosition = this.position;
         switch (direction){
             case RIGHT:
@@ -42,6 +42,8 @@ public class Car {
     //    }
         if(map.canMoveTo(newPosition)){
             this.position = newPosition;
+        }else{
+            throw new IllegalAccessException(newPosition.toString() + " is out of map boundaries");
         }
 
     }

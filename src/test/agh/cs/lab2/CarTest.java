@@ -14,7 +14,7 @@ public class CarTest {
 
 
     @Test
-    public void testCar(){
+    public void testCar()throws IllegalAccessException{
     /*
         Car car = new Car();
         String[] args = {"r","r","l","f","f","f","b"};

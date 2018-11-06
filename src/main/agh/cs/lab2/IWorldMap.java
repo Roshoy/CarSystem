@@ -35,7 +35,7 @@ public interface IWorldMap {
      * @param directions
      *            Array of move directions.
      */
-    void run(LinkedList<MoveDirection> directions);
+    void run(LinkedList<MoveDirection> directions)throws IllegalAccessException;
 
     /**
      * Return true if given position on the map is occupied. Should not be

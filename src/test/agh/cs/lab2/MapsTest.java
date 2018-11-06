@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MapsTest {
     @Test
-    public void unboundedMapForcedTest(){
+    public void unboundedMapForcedTest()throws IllegalAccessException{
         IWorldMap map = new UnboundedMap();
         Car car1 = new Car(map,new Position(0,0));
         Car car2 = new Car(map,new Position(3,4));
@@ -39,7 +39,7 @@ public class MapsTest {
         assertEquals("S (1,-3)",((UnboundedMap) map).getCar(0).dataToString());
     }
     @Test
-    public void unboundedMapTest(){
+    public void unboundedMapTest()throws IllegalAccessException{
         IWorldMap map = new UnboundedMap();
         Car car1 = new Car(map,new Position(0,0));
 
@@ -69,11 +69,9 @@ public class MapsTest {
 
     }
     @Test
-    public void rectangleMapTest(){
+    public void rectangleMapTest()throws IllegalAccessException{
         IWorldMap map = new RectangularMap(10,10);
         Car car1 = new Car(map,new Position(0,0));
-
-
         HayStack[] stacks = {new HayStack(new Position(0,1)),
 
         };
@@ -83,19 +81,19 @@ public class MapsTest {
                 "l",
                 "f",
                 "f",
-                "b",
-                "f", "b", "b", "b", "b"};
+                "b", "f", "b", "b", "b", "b"};
 
         LinkedList<MoveDirection> directions = new OptionsParser().parse(arg);
         map.place(car1);
 
         for (int i=0;i<stacks.length;i++) {
-            ((UnboundedMap) map).placeHayStack(stacks[i]);
+            ((RectangularMap) map).placeHayStack(stacks[i]);
         }
         map.run(directions);
 
-        assertEquals("N (1,0)",((UnboundedMap) map).getCar(0).dataToString());
+        assertEquals("N (1,0)",((RectangularMap) map).getCar(0).dataToString());
         String[] arg2 = {"r","f","f","f","f","f","f","f","f","f","f","f",};
-        assertEquals("E (1,9)",((UnboundedMap) map).getCar(0).dataToString());
+        map.run(new OptionsParser().parse(arg2));
+        assertEquals("E (9,0)",((RectangularMap) map).getCar(0).dataToString());
     }
 }

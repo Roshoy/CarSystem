@@ -37,7 +37,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return true;
     }
 
-    public void run(LinkedList<MoveDirection> directions) {
+    public void run(LinkedList<MoveDirection> directions)throws IllegalAccessException {
         for(int i=0; i<directions.size(); i++){
             this.cars.get(i%this.cars.size()).move(directions.get(i));
         }

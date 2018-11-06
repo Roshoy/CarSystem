@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * Created by student33 on 2018-10-16.
  */
 public class OptionsParser {
-    public static LinkedList<MoveDirection> parse(String[] args){
+    public static LinkedList<MoveDirection> parse(String[] args)throws IllegalArgumentException {
         LinkedList<MoveDirection> result = new LinkedList<MoveDirection>();
         for(String s : args){
             switch (s){
@@ -26,6 +26,8 @@ public class OptionsParser {
                 case "right":
                     result.add(MoveDirection.RIGHT);
                     break;
+                default:
+                    throw new IllegalArgumentException(s + " is not legal move specification");
             }
         }
         return result;
