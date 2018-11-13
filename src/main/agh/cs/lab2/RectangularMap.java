@@ -15,8 +15,6 @@ public class RectangularMap extends AbstractWorldMap{
         this.width = width;
         this.setLeftDownCorner(new Position(0,0));
         this.setRightUpperCorner(new Position(this.width-1,this.height-1));
-
-
     }
 
     @Override

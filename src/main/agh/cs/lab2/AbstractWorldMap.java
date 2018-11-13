@@ -1,9 +1,6 @@
 package agh.cs.lab2;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractWorldMap implements IWorldMap{
     private List<Car> cars  = new LinkedList<Car>();
@@ -35,20 +32,34 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return true;
     }
 
-    public boolean place(Car car) {
-        if(isOccupied(car.getPosition()))return false;
+    public boolean place(Car car)throws IllegalAccessException {
+        if(isOccupied(car.getPosition())){
+            throw new IllegalAccessException("Can't place car on this position " + car.getPosition().toString());
+            //return false;
+        }
         this.carss.put(car.getPosition(),car);
-
+       // this.cars.add(car);
         return true;
     }
 
-    public void run(LinkedList<MoveDirection> directions)throws IllegalAccessException {
+    public void run(LinkedList<MoveDirection> directions) {
+
+        Position[] positions = new Position[carss.keySet().size()];
+        carss.keySet().toArray(positions);
         for(int i=0; i<directions.size(); i++){
-            this.cars.get(i%this.cars.size()).move(directions.get(i));
+            //this.cars.get(i%this.cars.size()).move(directions.get(i));
+            Car tempCar = carss.get(positions[i%positions.length]);
+            carss.remove(positions[i%positions.length]);
+            tempCar.move(directions.get(i));
+            carss.put(tempCar.getPosition(),tempCar);
+            positions[i%positions.length] = tempCar.getPosition();
         }
     }
 
     public Object objectAt(Position position) {
+
+        if(this.carss.containsKey(position))return carss.get(position);
+
         for(Car car: this.cars){
             if(car.getPosition().equals(position))
                 return car;
@@ -57,20 +68,19 @@ public abstract class AbstractWorldMap implements IWorldMap{
             if(stack.getPosition().equals(position))
                 return stack;
         }
+
         return null;
     }
 
     public abstract String toString();
 
-    public Car getCar(int i){
-        return cars.get(i);
-    }
-
     public List<Car> getCars() {
-        return cars;
+        return new ArrayList<Car>(carss.values());
+        //return cars;
     }
 
     public void setCars(List<Car> cars) {
+
         this.cars = cars;
     }
 

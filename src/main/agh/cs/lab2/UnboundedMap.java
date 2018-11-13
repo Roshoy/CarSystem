@@ -33,7 +33,7 @@ public class UnboundedMap extends AbstractWorldMap {
     }
 
     @Override
-    public void run(LinkedList<MoveDirection> directions)throws IllegalAccessException{
+    public void run(LinkedList<MoveDirection> directions){
         super.run(directions);
         updateVisionCorners();
     }

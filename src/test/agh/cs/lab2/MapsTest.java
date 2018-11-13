@@ -35,8 +35,8 @@ public class MapsTest {
         }
         map.run(directions);
 
-        assertEquals("N (2,7)",((UnboundedMap) map).getCar(1).dataToString());
-        assertEquals("S (1,-3)",((UnboundedMap) map).getCar(0).dataToString());
+        assertEquals("N (2,7)",((UnboundedMap) map).getCars().get(1).dataToString());
+        assertEquals("S (1,-3)",((UnboundedMap) map).getCars().get(0).dataToString());
     }
     @Test
     public void unboundedMapTest()throws IllegalAccessException{
@@ -64,7 +64,7 @@ public class MapsTest {
         }
         map.run(directions);
 
-        assertEquals("N (1,-2)",((UnboundedMap) map).getCar(0).dataToString());
+        assertEquals("N (1,-2)",((UnboundedMap) map).getCars().get(0).dataToString());
         assertEquals(new Position(1,-2),((UnboundedMap) map).getLeftDownCorner());
 
     }
@@ -91,9 +91,9 @@ public class MapsTest {
         }
         map.run(directions);
 
-        assertEquals("N (1,0)",((RectangularMap) map).getCar(0).dataToString());
+        assertEquals("N (1,0)",((RectangularMap) map).getCars().get(0).dataToString());
         String[] arg2 = {"r","f","f","f","f","f","f","f","f","f","f","f",};
         map.run(new OptionsParser().parse(arg2));
-        assertEquals("E (9,0)",((RectangularMap) map).getCar(0).dataToString());
+        assertEquals("E (9,0)",((RectangularMap) map).getCars().get(0).dataToString());
     }
 }

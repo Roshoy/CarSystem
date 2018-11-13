@@ -26,7 +26,7 @@ public interface IWorldMap {
      *            The car to place on the map.
      * @return True if the car was placed. The car cannot be placed if the map is already occupied.
      */
-    boolean place(Car car);
+    boolean place(Car car)throws IllegalAccessException;
 
     /**
      * Move the cars on the map according to the provided move directions. Every
@@ -35,7 +35,7 @@ public interface IWorldMap {
      * @param directions
      *            Array of move directions.
      */
-    void run(LinkedList<MoveDirection> directions)throws IllegalAccessException;
+    void run(LinkedList<MoveDirection> directions);
 
     /**
      * Return true if given position on the map is occupied. Should not be

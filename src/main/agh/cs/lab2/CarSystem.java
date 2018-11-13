@@ -11,7 +11,7 @@ public class CarSystem {
 
 
         try {
-            String[] arg = {"a","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
+            String[] arg = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
             LinkedList<MoveDirection> directions = new OptionsParser().parse(arg);
             IWorldMap map = new RectangularMap(10, 5);
             map.place(new Car(map));
