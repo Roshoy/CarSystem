@@ -2,7 +2,7 @@ package agh.cs.lab2;
 
 import java.util.*;
 
-public abstract class AbstractWorldMap implements IWorldMap{
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     private List<Car> cars  = new LinkedList<Car>();
     private List<HayStack> hayStacks = new LinkedList<HayStack>();
 
@@ -44,15 +44,23 @@ public abstract class AbstractWorldMap implements IWorldMap{
 
     public void run(LinkedList<MoveDirection> directions) {
 
-        Position[] positions = new Position[carss.keySet().size()];
-        carss.keySet().toArray(positions);
+   //     Position[] positions = new Position[carss.keySet().size()];
+   //     carss.keySet().toArray(positions);
+        LinkedList<Car> carList = new LinkedList<>(this.carss.values());
         for(int i=0; i<directions.size(); i++){
+
+            //this.carss.remove(carList.get(i%carList.size()).getPosition());
+            carList.get(i%carList.size()).move(directions.get(i));
+            //this.carss.put(carList.get(i%carList.size()).getPosition(),carList.get(i%carList.size()));
+           /*
+            ////////////////////////////////////////////////////
             //this.cars.get(i%this.cars.size()).move(directions.get(i));
             Car tempCar = carss.get(positions[i%positions.length]);
             carss.remove(positions[i%positions.length]);
             tempCar.move(directions.get(i));
             carss.put(tempCar.getPosition(),tempCar);
             positions[i%positions.length] = tempCar.getPosition();
+        */
         }
     }
 
@@ -70,6 +78,12 @@ public abstract class AbstractWorldMap implements IWorldMap{
         }
 
         return null;
+    }
+
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car tempCar = this.carss.get(oldPosition);
+        this.carss.remove(oldPosition);
+        this.carss.put(newPosition,tempCar);
     }
 
     public abstract String toString();

@@ -1,5 +1,7 @@
 package agh.cs.lab2;
 
+import java.util.LinkedList;
+
 /**
  * Created by student33 on 2018-10-16.
  */
@@ -7,6 +9,7 @@ package agh.cs.lab2;
 public class Car {
     private MapDirection direction = MapDirection.NORTH;
     private Position position  = new Position(2,2);
+    private LinkedList<IPositionChangeObserver> observers = new LinkedList<>();
    /* public void Car(){
         this.direction = MapDirection.NORTH;
         this.position = new Position(2,2);
@@ -44,6 +47,20 @@ public class Car {
             this.position = newPosition;
         }
 
+    }
+
+    public void addObserver(IPositionChangeObserver observer){
+        this.observers.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer){
+        this.observers.remove(observer);
+    }
+
+    private void positionChanged(Position newPosition){
+        for(IPositionChangeObserver observer : this.observers){
+            observer.positionChanged(this.position,newPosition);
+        }
     }
 
     public Position getPosition(){
