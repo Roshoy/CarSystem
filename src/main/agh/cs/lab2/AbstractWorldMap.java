@@ -3,10 +3,10 @@ package agh.cs.lab2;
 import java.util.*;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
-    private List<Car> cars  = new LinkedList<Car>();
+
     private List<HayStack> hayStacks = new LinkedList<HayStack>();
 
-    private Map<Position, Car> carss = new HashMap<Position, Car>();
+    private Map<Position, Car> cars = new HashMap<Position, Car>();
 
     private Position leftDownCorner;
     private Position rightUpperCorner;
@@ -38,65 +38,42 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             //return false;
         }
         car.addObserver(this);
-        this.carss.put(car.getPosition(),car);
+        this.cars.put(car.getPosition(),car);
        // this.cars.add(car);
         return true;
     }
 
     public void run(LinkedList<MoveDirection> directions) {
 
-   //     Position[] positions = new Position[carss.keySet().size()];
-   //     carss.keySet().toArray(positions);
-        LinkedList<Car> carList = new LinkedList<>(this.carss.values());
+        LinkedList<Car> carList = new LinkedList<>(this.cars.values());
         for(int i=0; i<directions.size(); i++){
 
-            //this.carss.remove(carList.get(i%carList.size()).getPosition());
             carList.get(i%carList.size()).move(directions.get(i));
-            //this.carss.put(carList.get(i%carList.size()).getPosition(),carList.get(i%carList.size()));
-           /*
-            ////////////////////////////////////////////////////
-            //this.cars.get(i%this.cars.size()).move(directions.get(i));
-            Car tempCar = carss.get(positions[i%positions.length]);
-            carss.remove(positions[i%positions.length]);
-            tempCar.move(directions.get(i));
-            carss.put(tempCar.getPosition(),tempCar);
-            positions[i%positions.length] = tempCar.getPosition();
-        */
         }
     }
 
     public Object objectAt(Position position) {
 
-        if(this.carss.containsKey(position))return carss.get(position);
+        if(this.cars.containsKey(position))return cars.get(position);
 
-        for(Car car: this.cars){
-            if(car.getPosition().equals(position))
-                return car;
-        }
         for(HayStack stack: this.hayStacks){
             if(stack.getPosition().equals(position))
                 return stack;
         }
-
         return null;
     }
 
     public void positionChanged(Position oldPosition, Position newPosition){
-        Car tempCar = this.carss.get(oldPosition);
-        this.carss.remove(oldPosition);
-        this.carss.put(newPosition,tempCar);
+        Car tempCar = this.cars.get(oldPosition);
+        this.cars.remove(oldPosition);
+        this.cars.put(newPosition,tempCar);
     }
 
     public abstract String toString();
 
     public List<Car> getCars() {
-        return new ArrayList<Car>(carss.values());
-        //return cars;
-    }
+        return new ArrayList<Car>(cars.values());
 
-    public void setCars(List<Car> cars) {
-
-        this.cars = cars;
     }
 
     public List<HayStack> getHayStacks() {
