@@ -37,6 +37,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             throw new IllegalAccessException("Can't place car on this position " + car.getPosition().toString());
             //return false;
         }
+        car.addObserver(this);
         this.carss.put(car.getPosition(),car);
        // this.cars.add(car);
         return true;

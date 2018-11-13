@@ -17,6 +17,7 @@ public class Car {
     private IWorldMap map;
     public Car(IWorldMap map, Position initialPosition){
         this.map = map;
+
         this.position = initialPosition;
     }
     public Car(IWorldMap map){
