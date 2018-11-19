@@ -13,13 +13,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
 
 
-    public boolean canMoveTo(Position position){
-
-        if( this.rightUpperCorner.largerThan(position) &&
-            this.leftDownCorner.smallerThan(position) &&
-            !isOccupied(position))return true;
-        return false;
-    }
+    public abstract boolean canMoveTo(Position position);
 
     public boolean isOccupied(Position position) {
         if(objectAt(position)!=null)return true;
@@ -47,15 +41,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
         LinkedList<Car> carList = new LinkedList<>(this.cars.values());
         for(int i=0; i<directions.size(); i++){
-
             carList.get(i%carList.size()).move(directions.get(i));
         }
     }
 
     public Object objectAt(Position position) {
-
         if(this.cars.containsKey(position))return cars.get(position);
-
         for(HayStack stack: this.hayStacks){
             if(stack.getPosition().equals(position))
                 return stack;
