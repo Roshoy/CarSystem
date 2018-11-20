@@ -8,6 +8,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     private Map<Position, Car> cars = new HashMap<Position, Car>();
 
+    private Map<Position,IMapElement>  mapElements = new HashMap<>();
+
     private Position leftDownCorner;
     private Position rightUpperCorner;
 
@@ -29,6 +31,17 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public boolean placeHayStack(HayStack stack){
         if(isOccupied(stack.getPosition()))return false;
         this.hayStacks.add(stack);
+        return true;
+    }
+
+    public boolean place(IMapElement element)throws IllegalAccessException {
+        if(isOccupied(element.getPosition())){
+            throw new IllegalAccessException("Can't place element on this position " + element.getPosition().toString());
+        }
+        if(element instanceof Car){
+            ((Car) element).addObserver(this);
+        }
+        this.mapElements.put(element.getPosition(), element);
         return true;
     }
 
@@ -55,11 +68,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public Object objectAt(Position position) {
 
         if(this.cars.containsKey(position))return cars.get(position);
-
-        for(HayStack stack: this.hayStacks){
-            if(stack.getPosition().equals(position))
-                return stack;
-        }
+        if(this.mapElements.containsKey(position))return this.mapElements.get(position);
+//        for(HayStack stack: this.hayStacks){
+//            if(stack.getPosition().equals(position))
+//                return stack;
+//        }
         return null;
     }
 
@@ -72,8 +85,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public abstract String toString();
 
     public List<Car> getCars() {
-        return new ArrayList<Car>(cars.values());
-
+        //return new ArrayList<Car>(cars.values());
+        ArrayList<Car> carList= new ArrayList<Car>();
+        for(IMapElement element: this.mapElements.values()){
+            if(element instanceof Car)carList.add((Car)element);
+        }
+        return carList;
     }
 
     public List<HayStack> getHayStacks() {

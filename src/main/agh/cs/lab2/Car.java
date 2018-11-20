@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * Created by student33 on 2018-10-16.
  */
 //Adrian
-public class Car {
+public class Car implements IMapElement{
     private MapDirection direction = MapDirection.NORTH;
     private Position position  = new Position(2,2);
     private LinkedList<IPositionChangeObserver> observers = new LinkedList<>();
