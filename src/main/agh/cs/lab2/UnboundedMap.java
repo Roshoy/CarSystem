@@ -12,7 +12,6 @@ public class UnboundedMap extends AbstractWorldMap {
 
     @Override
     public boolean canMoveTo(Position position){
-
         if(!isOccupied(position))return true;
         return false;
     }

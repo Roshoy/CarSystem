@@ -15,13 +15,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
 
 
-    public boolean canMoveTo(Position position){
-
-        if( this.rightUpperCorner.largerThan(position) &&
-            this.leftDownCorner.smallerThan(position) &&
-            !isOccupied(position))return true;
-        return false;
-    }
+    public abstract boolean canMoveTo(Position position);
 
     public boolean isOccupied(Position position) {
         if(objectAt(position)!=null)return true;
@@ -59,15 +53,18 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public void run(LinkedList<MoveDirection> directions) {
 
         LinkedList<Car> carList = new LinkedList<>(this.cars.values());
-        for(int i=0; i<directions.size(); i++){
+        for(IMapElement element: this.mapElements.values()){
+            if(element instanceof Car)carList.add((Car)element);
+        }
 
+        for(int i=0; i<directions.size(); i++){
             carList.get(i%carList.size()).move(directions.get(i));
         }
     }
 
     public Object objectAt(Position position) {
 
-        if(this.cars.containsKey(position))return cars.get(position);
+       // if(this.cars.containsKey(position))return cars.get(position);
         if(this.mapElements.containsKey(position))return this.mapElements.get(position);
 //        for(HayStack stack: this.hayStacks){
 //            if(stack.getPosition().equals(position))
@@ -77,9 +74,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     public void positionChanged(Position oldPosition, Position newPosition){
-        Car tempCar = this.cars.get(oldPosition);
-        this.cars.remove(oldPosition);
-        this.cars.put(newPosition,tempCar);
+//        Car tempCar = this.cars.get(oldPosition);
+       // this.cars.remove(oldPosition);
+        this.cars.put(newPosition,this.cars.remove(oldPosition));
     }
 
     public abstract String toString();
@@ -94,7 +91,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     public List<HayStack> getHayStacks() {
-        return hayStacks;
+        ArrayList<HayStack> hayStackList= new ArrayList<>();
+        for(IMapElement element: this.mapElements.values()){
+            if(element instanceof HayStack)hayStackList.add((HayStack) element);
+        }
+        return hayStackList;
     }
 
     public void setHayStacks(List<HayStack> hayStacks) {
