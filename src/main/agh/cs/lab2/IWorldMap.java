@@ -26,7 +26,7 @@ public interface IWorldMap {
      *            The car to place on the map.
      * @return True if the car was placed. The car cannot be placed if the map is already occupied.
      */
-    boolean place(Car car)throws IllegalAccessException;
+    boolean place(IMapElement element)throws IllegalAccessException;
 
     /**
      * Move the cars on the map according to the provided move directions. Every

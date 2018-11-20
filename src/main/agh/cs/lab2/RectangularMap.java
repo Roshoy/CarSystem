@@ -7,10 +7,7 @@ public class RectangularMap extends AbstractWorldMap{
     private int width;
     private int height;
 
-
-
     public RectangularMap(int width, int height){
-
         this.height = height;
         this.width = width;
         this.setLeftDownCorner(new Position(0,0));
@@ -32,8 +29,4 @@ public class RectangularMap extends AbstractWorldMap{
         return new MapVisualizer(this).draw(this.getLeftDownCorner(),this.getRightUpperCorner());
 
     }
-
-
-
-
 }

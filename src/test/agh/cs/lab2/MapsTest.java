@@ -31,7 +31,7 @@ public class MapsTest {
         map.place(car1);
         map.place(car2);
         for (int i=0;i<stacks.length;i++) {
-            ((UnboundedMap) map).placeHayStack(stacks[i]);
+            ((UnboundedMap) map).place(stacks[i]);
         }
         map.run(directions);
 
@@ -60,12 +60,12 @@ public class MapsTest {
         map.place(car1);
 
         for (int i=0;i<stacks.length;i++) {
-            ((UnboundedMap) map).placeHayStack(stacks[i]);
+            ((UnboundedMap) map).place(stacks[i]);
         }
         map.run(directions);
 
         assertEquals("N (1,-2)",((UnboundedMap) map).getCars().get(0).dataToString());
-        assertEquals(new Position(1,-2),((UnboundedMap) map).getLeftDownCorner());
+        assertEquals(new Position(1,-2),((UnboundedMap) map).getCars().get(0).getPosition());
 
     }
     @Test
@@ -87,7 +87,7 @@ public class MapsTest {
         map.place(car1);
 
         for (int i=0;i<stacks.length;i++) {
-            ((RectangularMap) map).placeHayStack(stacks[i]);
+            ((RectangularMap) map).place(stacks[i]);
         }
         map.run(directions);
 
