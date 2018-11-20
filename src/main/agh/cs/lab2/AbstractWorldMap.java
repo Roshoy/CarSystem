@@ -9,7 +9,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     private Position leftDownCorner;
     private Position rightUpperCorner;
 
-
     public abstract boolean canMoveTo(Position position);
 
     public boolean isOccupied(Position position) {
