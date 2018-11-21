@@ -37,6 +37,7 @@ public class MapsTest {
 
         assertEquals("N (2,7)",((UnboundedMap) map).getCars().get(1).dataToString());
         assertEquals("S (1,-3)",((UnboundedMap) map).getCars().get(0).dataToString());
+
     }
     @Test
     public void unboundedMapTest()throws IllegalAccessException{
@@ -95,5 +96,6 @@ public class MapsTest {
         String[] arg2 = {"r","f","f","f","f","f","f","f","f","f","f","f",};
         map.run(new OptionsParser().parse(arg2));
         assertEquals("E (9,0)",((RectangularMap) map).getCars().get(0).dataToString());
+
     }
 }
